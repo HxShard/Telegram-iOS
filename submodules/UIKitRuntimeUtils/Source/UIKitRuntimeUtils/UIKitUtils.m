@@ -238,7 +238,7 @@ NSObject * _Nullable makeMonochromeFilter() {
 
 
 void setLayerDisableScreenshots(CALayer * _Nonnull layer, bool disableScreenshots) {
-    static UITextField *textField = nil;
+    /* static UITextField *textField = nil;
     static UIView *secureView = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -263,7 +263,7 @@ void setLayerDisableScreenshots(CALayer * _Nonnull layer, bool disableScreenshot
         textField.secureTextEntry = true;
         textField.secureTextEntry = false;
     }
-    [secureView setValue:previousLayer forKey:@"layer"];
+    [secureView setValue:previousLayer forKey:@"layer"]; */
 }
 
 void setLayerContentsMaskMode(CALayer * _Nonnull layer, bool maskMode) {

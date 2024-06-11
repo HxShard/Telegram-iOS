@@ -415,7 +415,7 @@ public final class SecretMediaPreviewController: ViewController {
     override public func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        if self.screenCaptureEventsDisposable == nil {
+        /* if self.screenCaptureEventsDisposable == nil {
             self.screenCaptureEventsDisposable = (screenCaptureEvents()
             |> deliverOnMainQueue).start(next: { [weak self] _ in
                 if let strongSelf = self, strongSelf.traceVisibility() {
@@ -426,7 +426,7 @@ public final class SecretMediaPreviewController: ViewController {
                     }
                 }
             })
-        }
+        } */
         
         var nodeAnimatesItself = false
         

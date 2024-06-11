@@ -139,8 +139,7 @@ public extension TelegramEngine {
         }
 
         public func addSecretChatMessageScreenshot(peerId: PeerId) -> Signal<Never, NoError> {
-            return _internal_addSecretChatMessageScreenshot(account: self.account, peerId: peerId)
-            |> ignoreValues
+            return .complete()
         }
 
         public func forwardGameWithScore(messageId: MessageId, to peerId: PeerId, threadId: Int64?, as senderPeerId: PeerId?) -> Signal<Void, NoError> {
