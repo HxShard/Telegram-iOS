@@ -2607,7 +2607,7 @@ private func extractAccountManagerState(records: AccountRecordsView<TelegramAcco
                         authorizationOptions.insert(.announcement)
                     }
                     Logger.shared.log("App \(self.episodeId)", "register for notifications: request authorization")
-                    notificationCenter.requestAuthorization(options: authorizationOptions, completionHandler: { result, _ in
+                    /* notificationCenter.requestAuthorization(options: authorizationOptions, completionHandler: { result, _ in
                         Logger.shared.log("App \(self.episodeId)", "register for notifications: received authorization: \(result)")
                         completion(result)
                         if result {
@@ -2661,7 +2661,7 @@ private func extractAccountManagerState(records: AccountRecordsView<TelegramAcco
                                 UIApplication.shared.registerForRemoteNotifications()
                             }
                         }
-                    })
+                    }) */
                 default:
                     break
             }

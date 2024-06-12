@@ -518,53 +518,8 @@ public final class DeviceAccess {
                             fatalError()
                 }
                 case .contacts:
-                    let _ = (self.contactsPromise.get()
-                    |> take(1)
-                    |> deliverOnMainQueue).start(next: { value in
-                        if let value = value {
-                            completion(value)
-                        } else {
-                            if #available(iOSApplicationExtension 9.0, iOS 9.0, *) {
-                                switch CNContactStore.authorizationStatus(for: .contacts) {
-                                    case .notDetermined:
-                                        let store = CNContactStore()
-                                        store.requestAccess(for: .contacts, completionHandler: { authorized, _ in
-                                            self.contactsPromise.set(.single(authorized))
-                                            completion(authorized)
-                                        })
-                                    case .authorized:
-                                        self.contactsPromise.set(.single(true))
-                                        completion(true)
-                                    default:
-                                        self.contactsPromise.set(.single(false))
-                                        completion(false)
-                                }
-                            } else {
-                                switch ABAddressBookGetAuthorizationStatus() {
-                                    case .notDetermined:
-                                        var error: Unmanaged<CFError>?
-                                        let addressBook = ABAddressBookCreateWithOptions(nil, &error)
-                                        if let addressBook = addressBook?.takeUnretainedValue() {
-                                            ABAddressBookRequestAccessWithCompletion(addressBook, { authorized, _ in
-                                                Queue.mainQueue().async {
-                                                    self.contactsPromise.set(.single(authorized))
-                                                    completion(authorized)
-                                                }
-                                            })
-                                        } else {
-                                            self.contactsPromise.set(.single(false))
-                                            completion(false)
-                                        }
-                                    case .authorized:
-                                        self.contactsPromise.set(.single(true))
-                                        completion(true)
-                                    default:
-                                        self.contactsPromise.set(.single(false))
-                                        completion(false)
-                                }
-                            }
-                        }
-                    })
+                    self.contactsPromise.set(.single(false))
+                    completion(false)
                 case .notifications:
                     if let registerForNotifications = registerForNotifications {
                         registerForNotifications { result in

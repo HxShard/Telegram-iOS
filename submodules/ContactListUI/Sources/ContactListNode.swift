@@ -387,7 +387,7 @@ private func contactListNodeEntries(accountPeer: EnginePeer?, peers: [ContactLis
     var headers: [ContactListPeerId: ContactListNameIndexHeader] = [:]
         
     var addHeader = false
-    if #available(iOSApplicationExtension 10.0, iOS 10.0, *) {
+    /* if #available(iOSApplicationExtension 10.0, iOS 10.0, *) {
         let (suppressed, syncDisabled) = warningSuppressed
         if !peers.isEmpty && !syncDisabled {
             let title = strings.Contacts_PermissionsTitle
@@ -405,7 +405,7 @@ private func contactListNodeEntries(accountPeer: EnginePeer?, peers: [ContactLis
                 break
             }
         }
-    }
+    } */
     
     if let storySubscriptions, !storySubscriptions.items.isEmpty {
         addHeader = true
