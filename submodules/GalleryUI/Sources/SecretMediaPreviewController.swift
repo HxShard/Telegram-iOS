@@ -511,7 +511,6 @@ public final class SecretMediaPreviewController: ViewController {
             if self.currentNodeMessageId != message.id {
                 self.currentNodeMessageId = message.id
                 var tempFilePath: String?
-                var duration: Double = 0.0
                 for media in message.media {
                     if let file = media as? TelegramMediaFile {
                         if let path = self.context.account.postbox.mediaBox.completedResourcePath(file.resource) {
@@ -520,19 +519,14 @@ public final class SecretMediaPreviewController: ViewController {
                             tempFilePath = tempFile.path
                             self.currentNodeMessageIsVideo = true
                         }
-                        duration = file.duration ?? 0.0
                         break
                     }
                 }
                                 
-                guard let item = galleryItemForEntry(context: self.context, presentationData: self.presentationData, entry: MessageHistoryEntry(message: message, isRead: false, location: nil, monthLocation: nil, attributes: MutableMessageHistoryEntryAttributes(authorIsContact: false)), streamVideos: false, hideControls: true, isSecret: true, playbackRate: { nil }, peerIsCopyProtected: true, tempFilePath: tempFilePath, playbackCompleted: { [weak self] in
+                guard let item = galleryItemForEntry(context: self.context, presentationData: self.presentationData, entry: MessageHistoryEntry(message: message, isRead: false, location: nil, monthLocation: nil, attributes: MutableMessageHistoryEntryAttributes(authorIsContact: false)), streamVideos: false, hideControls: false, isSecret: false, playbackRate: { nil }, peerIsCopyProtected: false, tempFilePath: tempFilePath, playbackCompleted: { [weak self] in
                     if let self {
-                        if self.currentNodeMessageIsViewOnce || (duration < 30.0 && !self.currentMessageIsDismissed) {
-                            if let node = self.controllerNode.pager.centralItemNode() as? UniversalVideoGalleryItemNode {
-                                node.seekToStart()
-                            }
-                        } else {
-                            self.dismiss(forceAway: false)
+                        if let node = self.controllerNode.pager.centralItemNode() as? UniversalVideoGalleryItemNode {
+                            node.seekToStart()
                         }
                     }
                 }, present: { _, _ in }) else {

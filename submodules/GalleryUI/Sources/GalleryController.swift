@@ -207,7 +207,7 @@ public func galleryItemForEntry(
                 location: location,
                 translateToLanguage: translateToLanguage,
                 peerIsCopyProtected: peerIsCopyProtected,
-                isSecret: isSecret,
+                isSecret: false,
                 displayInfoOnTop: displayInfoOnTop,
                 performAction: performAction,
                 openActionOptions: openActionOptions,
@@ -216,7 +216,7 @@ public func galleryItemForEntry(
         } else if let file = media as? TelegramMediaFile {
             if file.isVideo {
                 let content: UniversalVideoContent
-                let captureProtected = message.isCopyProtected() || message.containsSecretMedia || message.minAutoremoveOrClearTimeout == viewOnceTimeout
+                let captureProtected = false
                 if file.isAnimated {
                     content = NativeVideoContent(id: .message(message.stableId, file.fileId), userLocation: .peer(message.id.peerId), fileReference: .message(message: MessageReference(message), media: file), imageReference: mediaImage.flatMap({ ImageMediaReference.message(message: MessageReference(message), media: $0) }), loopVideo: true, enableSound: false, tempFilePath: tempFilePath, captureProtected: captureProtected, storeAfterDownload: generateStoreAfterDownload?(message, file))
                 } else {
