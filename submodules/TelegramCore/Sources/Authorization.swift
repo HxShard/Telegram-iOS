@@ -82,7 +82,7 @@ public enum SendAuthorizationCodeResult {
 }
 
 func storeFutureLoginToken(accountManager: AccountManager<TelegramAccountManagerTypes>, token: Data) {
-    let _ = (accountManager.transaction { transaction -> Void in
+    /* let _ = (accountManager.transaction { transaction -> Void in
         var tokens = transaction.getStoredLoginTokens()
         
         #if DEBUG
@@ -112,7 +112,7 @@ func storeFutureLoginToken(accountManager: AccountManager<TelegramAccountManager
         NSUbiquitousKeyValueStore.default.synchronize()
         
         transaction.setStoredLoginTokens(tokens)
-    }).start()
+    }).start() */
 }
 
 public struct AuthorizationCodePushNotificationConfiguration {
