@@ -899,12 +899,10 @@ final class ChatItemGalleryFooterContentNode: GalleryFooterContentNode, ASScroll
             }
         } else {
             canDelete = false
-            canShare = false
             canEdit = false
         }
         
         if message.isCopyProtected() || peerIsCopyProtected {
-            canShare = false
             canEdit = false
         }
         
