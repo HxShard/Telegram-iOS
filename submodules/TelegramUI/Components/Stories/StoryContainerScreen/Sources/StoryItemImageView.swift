@@ -44,30 +44,17 @@ final class StoryItemImageView: UIView {
     private func updateImage(image: UIImage, isCaptureProtected: Bool) {
         self.contentView.image = image
         
-        if isCaptureProtected {
-            let captureProtectedView: UITextField
-            if let current = self.captureProtectedView {
-                captureProtectedView = current
-            } else {
-                captureProtectedView = UITextField(frame: self.contentView.frame)
-                captureProtectedView.isSecureTextEntry = true
-                self.captureProtectedView = captureProtectedView
-                self.layer.addSublayer(captureProtectedView.layer)
-                captureProtectedView.layer.sublayers?.first?.addSublayer(self.contentView.layer)
-            }
-        } else {
-            if self.contentView.layer.superlayer !== self.layer {
-                self.layer.addSublayer(self.contentView.layer)
-            }
-            if let captureProtectedView = self.captureProtectedView {
-                self.captureProtectedView = nil
-                captureProtectedView.layer.removeFromSuperlayer()
-            }
+        if self.contentView.layer.superlayer !== self.layer {
+            self.layer.addSublayer(self.contentView.layer)
+        }
+        if let captureProtectedView = self.captureProtectedView {
+            self.captureProtectedView = nil
+            captureProtectedView.layer.removeFromSuperlayer()
         }
     }
     
     func update(context: AccountContext, strings: PresentationStrings, peer: EnginePeer, storyId: Int32, media: EngineMedia, size: CGSize, isCaptureProtected: Bool, attemptSynchronous: Bool, transition: Transition) {
-        self.backgroundColor = isCaptureProtected ? UIColor(rgb: 0x181818) : nil
+        self.backgroundColor = nil
         
         var dimensions: CGSize?
         
@@ -237,35 +224,7 @@ final class StoryItemImageView: UIView {
             }
         }
         
-        if isCaptureProtected {
-            let captureProtectedInfo: ComponentView<Empty>
-            var captureProtectedInfoTransition = transition
-            if let current = self.captureProtectedInfo {
-                captureProtectedInfo = current
-            } else {
-                captureProtectedInfoTransition = transition.withAnimation(.none)
-                captureProtectedInfo = ComponentView()
-                self.captureProtectedInfo = captureProtectedInfo
-            }
-            let captureProtectedInfoSize = captureProtectedInfo.update(
-                transition: captureProtectedInfoTransition,
-                component: AnyComponent(CaptureProtectedInfoComponent(
-                    strings: strings
-                )),
-                environment: {},
-                containerSize: size
-            )
-            if let captureProtectedInfoView = captureProtectedInfo.view {
-                if captureProtectedInfoView.superview == nil {
-                    self.insertSubview(captureProtectedInfoView, at: 0)
-                }
-                captureProtectedInfoTransition.setFrame(view: captureProtectedInfoView, frame: CGRect(origin: CGPoint(x: floor((size.width - captureProtectedInfoSize.width) * 0.5), y: floor((size.height - captureProtectedInfoSize.height) * 0.5)), size: captureProtectedInfoSize))
-                captureProtectedInfoView.isHidden = false
-            }
-        } else if let captureProtectedInfo = self.captureProtectedInfo {
-            self.captureProtectedInfo = nil
-            captureProtectedInfo.view?.removeFromSuperview()
-        }
+        self.captureProtectedInfo = nil
     }
 }
 
