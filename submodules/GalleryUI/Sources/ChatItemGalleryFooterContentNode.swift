@@ -822,8 +822,6 @@ final class ChatItemGalleryFooterContentNode: GalleryFooterContentNode, ASScroll
         }
         
         var canDelete: Bool
-        var canShare = true
-
         var canFullscreen = false
         
         var canEdit = false
@@ -990,7 +988,7 @@ final class ChatItemGalleryFooterContentNode: GalleryFooterContentNode, ASScroll
             messageText = galleryCaptionStringWithAppliedEntities(context: self.context, text: text, entities: entities, message: message, cachedMessageSyntaxHighlight: cachedMessageSyntaxHighlight)
         }
                         
-        if self.currentMessageText != messageText || canDelete != !self.deleteButton.isHidden || canFullscreen != !self.fullscreenButton.isHidden || canShare != !self.actionButton.isHidden || canEdit != !self.editButton.isHidden || self.currentAuthorNameText != authorNameText || self.currentDateText != dateText {
+        if self.currentMessageText != messageText || canDelete != !self.deleteButton.isHidden || canFullscreen != !self.fullscreenButton.isHidden || canEdit != !self.editButton.isHidden || self.currentAuthorNameText != authorNameText || self.currentDateText != dateText {
             self.currentMessageText = messageText
             
             if messageText.length == 0 {
@@ -1021,11 +1019,11 @@ final class ChatItemGalleryFooterContentNode: GalleryFooterContentNode, ASScroll
                 self.fullscreenButton.isHidden = true
             }
 
-            self.actionButton.isHidden = !canShare
-            self.editButton.isHidden = !canEdit
-            
+            self.editButton.isHidden = !canEdit            
             self.requestLayout?(.immediate)
         }
+
+        self.actionButton.isHidden = false
     }
     
     private func updateSpoilers(textFrame: CGRect) {

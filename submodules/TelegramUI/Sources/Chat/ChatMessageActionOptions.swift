@@ -95,9 +95,7 @@ private func chatForwardOptions(selfController: ChatControllerImpl, sourceNode: 
     let forwardOptions = selfController.presentationInterfaceStatePromise.get()
     |> map { state -> ChatControllerSubject.ForwardOptions in
         var hideNames = state.interfaceState.forwardOptionsState?.hideNames ?? false
-        if peerId.namespace == Namespaces.Peer.SecretChat {
-            hideNames = true
-        }
+        hideNames = true // i hope it won't cause side effects, but we really need it for forwarding expired videos
         return ChatControllerSubject.ForwardOptions(hideNames: hideNames, hideCaptions: state.interfaceState.forwardOptionsState?.hideCaptions ?? false)
     }
     |> distinctUntilChanged
