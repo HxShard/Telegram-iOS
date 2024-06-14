@@ -120,10 +120,7 @@ public func debugAccountsController(context: AccountContext, accountManager: Acc
             ActionSheetItemGroup(items: [
                 ActionSheetButtonItem(title: "Production", color: .accent, action: {
                     dismissAction()
-                    
-                    if case .internal = context.sharedContext.applicationBindings.appBuildType {
-                        context.sharedContext.beginNewAuth(testingEnvironment: false)
-                    }
+                    context.sharedContext.beginNewAuth(testingEnvironment: false)
                 }),
                 ActionSheetButtonItem(title: "Test", color: .accent, action: {
                     dismissAction()
