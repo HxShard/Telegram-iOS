@@ -5925,6 +5925,14 @@ final class PeerInfoScreenNode: ViewControllerTracingNode, PeerInfoScreenNodePro
                         })))
                     }
                     
+                    if strongSelf.peerId.namespace == Namespaces.Peer.CloudUser, !user.isDeleted && user.botInfo == nil && !user.flags.contains(.isSupport) {
+                        items.append(.action(ContextMenuActionItem(text: "Open in M3", icon: { theme in
+                            generateTintedImage(image: UIImage(bundleImageName: "Chat/Context Menu/Forward"), color: theme.contextMenu.primaryColor)
+                        }, action: { _ in
+                            strongSelf.openUrl(url: "https://master.modr.club/#ctg" + String(user.id.id._internalGetInt64Value()), concealed: false, external: true)
+                        })))
+                    }
+                    
                     if let cachedData = data.cachedData as? CachedUserData, cachedData.flags.contains(.translationHidden) {
                         items.append(.action(ContextMenuActionItem(text: presentationData.strings.Conversation_ContextMenuTranslate, icon: { theme in
                             generateTintedImage(image: UIImage(bundleImageName: "Chat/Context Menu/Translate"), color: theme.contextMenu.primaryColor)
