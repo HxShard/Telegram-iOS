@@ -1343,6 +1343,10 @@ private func infoItems(data: PeerInfoScreenData?, context: AccountContext, prese
                     interaction.requestLayout(false)
                 }))
             }
+
+            items[.peerInfo]!.append(PeerInfoScreenLabeledValueItem(id: 275, label: "id", text: String(user.id.id._internalGetInt64Value()), action: nil, requestLayout: {
+                interaction.requestLayout(false)
+            }))      
             
             if let businessHours = cachedData.businessHours {
                 items[.peerInfo]!.append(PeerInfoScreenBusinessHoursItem(id: 300, label: presentationData.strings.PeerInfo_BusinessHours_Label, businessHours: businessHours, requestLayout: { animated in
