@@ -1623,9 +1623,6 @@ public class ChatListItemNode: ItemListRevealOptionsItemNode {
             } else {
                 peer = peerData.peer.chatMainPeer
             }
-            if peerData.peer.peerId.namespace == Namespaces.Peer.SecretChat {
-                enablePreview = false
-            }
         case let .groupReference(groupReferenceData):
             if let previousItem = previousItem, case let .groupReference(previousGroupReferenceData) = previousItem.content, groupReferenceData.hiddenByDefault != previousGroupReferenceData.hiddenByDefault {
                 UIView.transition(with: self.avatarNode.view, duration: 0.3, options: [.transitionCrossDissolve], animations: {
